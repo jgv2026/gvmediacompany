@@ -1070,23 +1070,30 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: rgba(10, 11, 39, 0.98);
+                background: var(--primary);
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
                 flex-direction: column;
                 justify-content: flex-start;
-                padding: 24px;
-                gap: 4px;
+                padding: 32px 24px;
+                gap: 8px;
+                z-index: 999;
             }
 
             .nav-links.open {
                 display: flex;
             }
 
+            .nav-links li {
+                list-style: none;
+            }
+
             .nav-links a {
-                font-size: 1.0625rem;
-                padding: 14px 16px;
-                color: rgba(255, 255, 255, 0.8);
+                font-size: 1.25rem;
+                padding: 16px 20px;
+                color: rgba(255, 255, 255, 0.85);
+                display: block;
+                border-radius: 12px;
             }
 
             .nav-links a:hover,
@@ -1111,7 +1118,7 @@
             }
 
             .hero-logo {
-                height: 150px;
+                height: 200px;
                 margin-bottom: 32px;
             }
 
@@ -1217,15 +1224,15 @@
             }
 
             .flip-card-front .logo-langston {
-                width: 200px;
+                width: 240px;
             }
 
             .flip-card-front .logo-mitchell {
-                width: 180px;
+                width: 220px;
             }
 
             .flip-card-front .logo-lex {
-                width: 150px;
+                width: 180px;
             }
 
             .flip-card-back {
