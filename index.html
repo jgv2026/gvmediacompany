@@ -1066,17 +1066,17 @@
             .nav-links {
                 display: none !important;
                 position: fixed;
-                top: 72px;
+                top: 0;
                 left: 0;
                 right: 0;
                 bottom: 0;
                 background: #0a0b27;
                 flex-direction: column;
-                justify-content: flex-start;
+                justify-content: center;
+                align-items: center;
                 padding: 32px 24px;
-                gap: 8px;
+                gap: 16px;
                 z-index: 99999;
-                overflow-y: auto;
             }
 
             .nav-links.open {
@@ -1085,24 +1085,35 @@
 
             .nav-links li {
                 list-style: none;
+                width: 100%;
+                text-align: center;
             }
 
             .nav-links a {
-                font-size: 1.25rem;
-                padding: 16px 20px;
-                color: rgba(255, 255, 255, 0.85);
+                font-size: 1.5rem;
+                padding: 18px 24px;
+                color: #FFFFFF !important;
                 display: block;
                 border-radius: 12px;
+                background: rgba(255, 255, 255, 0.1);
             }
 
             .nav-links a:hover,
             .nav-links a.active {
-                color: #FFFFFF;
+                color: #FFFFFF !important;
+                background: rgba(255, 255, 255, 0.2);
             }
 
             .nav-cta {
                 margin-left: 0;
                 margin-top: 16px;
+                width: 100%;
+            }
+
+            .nav-cta .btn {
+                width: 100%;
+                font-size: 1.25rem;
+                padding: 18px 24px;
             }
 
             /* Hero Mobile */
