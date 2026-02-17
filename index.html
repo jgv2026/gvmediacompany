@@ -1571,24 +1571,24 @@
                     </div>
                 </div>
                 <div class="contact-form-wrapper reveal">
-                    <form class="contact-form" onsubmit="handleSubmit(event)">
+                    <form class="contact-form" action="https://formspree.io/f/mwvnbgzq" method="POST">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Full Name</label>
-                                <input type="text" id="name" placeholder="John Doe" required>
+                                <input type="text" id="name" name="name" placeholder="John Doe" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email Address</label>
-                                <input type="email" id="email" placeholder="john@lawfirm.com" required>
+                                <input type="email" id="email" name="email" placeholder="john@lawfirm.com" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="firm">Law Firm Name</label>
-                            <input type="text" id="firm" placeholder="Doe & Associates">
+                            <input type="text" id="firm" name="firm" placeholder="Doe & Associates">
                         </div>
                         <div class="form-group">
                             <label for="message">How Can We Help?</label>
-                            <textarea id="message" placeholder="Tell us about your firm and marketing goals..." rows="5"></textarea>
+                            <textarea id="message" name="message" placeholder="Tell us about your firm and marketing goals..." rows="5"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
@@ -1729,20 +1729,6 @@
                 }
             });
         });
-
-        // Form submission handler
-        function handleSubmit(e) {
-            e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
-            const originalText = btn.textContent;
-            btn.textContent = '✓ Message Sent!';
-            btn.style.background = '#34C759';
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = '';
-                e.target.reset();
-            }, 3000);
-        }
 
         // Initialize — reveal elements already in viewport
         document.addEventListener('DOMContentLoaded', () => {
