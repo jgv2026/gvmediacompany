@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GV Engineers — Crafting Digital Legacy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cream: #FAF7F2;
+      --cream-dark: #F0EBE3;
+      --bronze: #B08D57;
+      --bronze-light: #C9A96E;
+      --bronze-dark: #8C6F3E;
+      --charcoal: #1A1A1A;
+      --warm-gray: #6B6560;
+      --warm-gray-light: #9B9590;
+      --divider: rgba(176, 141, 87, 0.25);
+      --font-serif: 'Cormorant Garamond', 'Georgia', serif;
+      --font-sans: 'DM Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+      background: var(--bronze);
+      color: var(--cream);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ========== NAVBAR ========== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .navbar.scrolled {
+      padding: 1rem 3rem;
+      background: rgba(250, 247, 242, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .nav-brand {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--bronze);
+      transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-links a:hover {
+      color: var(--charcoal);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .nav-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--charcoal);
+      transition: all 0.3s ease;
+    }
+
+    /* ========== MOBILE NAV ========== */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .mobile-nav.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mobile-nav a {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--charcoal);
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+    }
+
+    .mobile-nav a:hover {
+      color: var(--bronze);
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero-line {
+      width: 40px;
+      height: 1px;
+      background: var(--bronze);
+      margin: 0 auto 2rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.3s forwards;
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+      color: var(--charcoal);
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--bronze);
+      font-weight: 400;
+    }
+
+    .hero-tagline {
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--warm-gray-light);
+      margin-top: 2rem;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.2s forwards;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.8s forwards;
+    }
+
+    .scroll-indicator span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--warm-gray-light);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--bronze), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ========== SECTION COMMON ========== */
+    section {
+      padding: 8rem 2rem;
+    }
+
+    .section-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--charcoal);
+      margin-bottom: 2rem;
+    }
+
+    .section-divider {
+      width: 50px;
+      height: 1px;
+      background: var(--bronze);
+      margin-bottom: 3rem;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== ABOUT ========== */
+    .about {
+      background: var(--cream);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--warm-gray);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      padding-top: 1rem;
+    }
+
+    .stat {
+      border-left: 1px solid var(--divider);
+      padding-left: 1.5rem;
+    }
+
+    .stat-number {
+      font-family: var(--font-serif);
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--charcoal);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--warm-gray-light);
+      font-weight: 400;
+    }
+
+    /* ========== PROJECTS ========== */
+    .projects {
+      background: var(--cream-dark);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .project-card {
+      background: var(--cream);
+      padding: 2.5rem;
+      position: relative;
+      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--bronze), var(--bronze-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(26, 26, 26, 0.06);
+      border-color: var(--divider);
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project-number {
+      font-family: var(--font-serif);
+      font-size: 0.9rem;
+      color: var(--bronze);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .project-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--warm-gray);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--divider);
+      color: var(--warm-gray-light);
+      font-weight: 400;
+    }
+
+    .project-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      margin-top: 1.5rem;
+      font-weight: 500;
+      transition: gap 0.3s ease;
+    }
+
+    .project-card:hover .project-arrow {
+      gap: 1rem;
+    }
+
+    .project-arrow svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover .project-arrow svg {
+      transform: translateX(4px);
+    }
+
+    /* ========== CONTACT ========== */
+    .contact {
+      background: var(--charcoal);
+      color: var(--cream);
+      text-align: center;
+    }
+
+    .contact .section-label {
+      color: var(--bronze-light);
+    }
+
+    .contact .section-title {
+      color: var(--cream);
+    }
+
+    .contact .section-divider {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-text {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--warm-gray-light);
+      max-width: 550px;
+      margin: 0 auto 3rem;
+      font-weight: 300;
+    }
+
+    .contact-email {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 300;
+      color: var(--cream);
+      display: inline-block;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .contact-email::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--bronze);
+      transform: scaleX(0);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .contact-email:hover {
+      color: var(--bronze-light);
+    }
+
+    .contact-email:hover::after {
+      transform: scaleX(1);
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .contact-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--warm-gray-light);
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .contact-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--bronze);
+      transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .contact-links a:hover {
+      color: var(--cream);
+    }
+
+    .contact-links a:hover::after {
+      width: 100%;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: var(--charcoal);
+      border-top: 1px solid rgba(250, 247, 242, 0.08);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--warm-gray);
+      font-weight: 300;
+    }
+
+    .footer-brand {
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 5rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .navbar {
+        padding: 1.2rem 1.5rem;
+      }
+
+      .navbar.scrolled {
+        padding: 0.8rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-menu-btn {
+        display: flex;
+      }
+
+      .mobile-nav {
+        display: flex;
+      }
+
+      .hero h1 {
+        letter-spacing: 0.04em;
+      }
+
+      .about-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .contact-links {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .about-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="#hero" class="nav-brand">GV Engineers</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#about" onclick="closeMobileNav()">About</a>
+    <a href="#projects" onclick="closeMobileNav()">Work</a>
+    <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-line"></div>
+      <h1>
+        GV
+        <span>Engineers</span>
+      </h1>
+      <p class="hero-tagline">Crafting Digital Legacy</p>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="section-container">
+      <div class="fade-in">
+        <p class="section-label">Our Philosophy</p>
+        <h2 class="section-title">Engineering with<br>Purpose & Precision</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <p>
+            We believe great software is built the same way enduring institutions are &mdash; with patience, discipline, and an uncompromising commitment to craft. Every line of code we write is a deliberate decision toward lasting impact.
+          </p>
+          <p>
+            Our approach merges deep technical expertise with design sensibility, creating digital experiences that stand the test of time. We don&rsquo;t chase trends. We set standards.
+          </p>
+        </div>
+        <div class="about-stats fade-in">
+          <div class="stat">
+            <div class="stat-number">12+</div>
+            <div class="stat-label">Years of Experience</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">80+</div>
+            <div class="stat-label">Projects Delivered</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">40+</div>
+            <div class="stat-label">Clients Worldwide</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">99%</div>
+            <div class="stat-label">Client Retention</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="section-container">
+      <div class="fade-in">
+        <p class="section-label">Selected Work</p>
+        <h2 class="section-title">Projects that<br>Define Excellence</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card fade-in">
+          <div class="project-number">01</div>
+          <h3 class="project-title">Enterprise Cloud Platform</h3>
+          <p class="project-desc">
+            A scalable cloud infrastructure platform serving Fortune 500 clients with 99.99% uptime and real-time analytics processing.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Cloud Architecture</span>
+            <span class="project-tag">AWS</span>
+            <span class="project-tag">Microservices</span>
+          </div>
+          <div class="project-arrow">
+            View Project
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-number">02</div>
+          <h3 class="project-title">FinTech Payment Gateway</h3>
+          <p class="project-desc">
+            End-to-end payment processing system handling millions of transactions daily with bank-grade security and sub-second response times.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">FinTech</span>
+            <span class="project-tag">Security</span>
+            <span class="project-tag">API Design</span>
+          </div>
+          <div class="project-arrow">
+            View Project
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-number">03</div>
+          <h3 class="project-title">Healthcare Data Engine</h3>
+          <p class="project-desc">
+            HIPAA-compliant data pipeline and analytics platform transforming raw medical data into actionable insights for healthcare providers.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Healthcare</span>
+            <span class="project-tag">Data Engineering</span>
+            <span class="project-tag">HIPAA</span>
+          </div>
+          <div class="project-arrow">
+            View Project
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </div>
+
+        <div class="project-card fade-in">
+          <div class="project-number">04</div>
+          <h3 class="project-title">AI-Powered Analytics Suite</h3>
+          <p class="project-desc">
+            Machine learning platform providing predictive analytics and intelligent automation for enterprise decision-making.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Machine Learning</span>
+            <span class="project-tag">Python</span>
+            <span class="project-tag">Analytics</span>
+          </div>
+          <div class="project-arrow">
+            View Project
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="section-container">
+      <div class="fade-in">
+        <p class="section-label">Get in Touch</p>
+        <h2 class="section-title">Let&rsquo;s Build<br>Something Lasting</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="fade-in">
+        <p class="contact-text">
+          We partner with forward-thinking organizations ready to invest in software that endures. If you value craftsmanship over shortcuts, we should talk.
+        </p>
+        <a href="mailto:hello@gvengineers.com" class="contact-email">hello@gvengineers.com</a>
+        <div class="contact-links">
+          <a href="#" target="_blank">GitHub</a>
+          <a href="#" target="_blank">LinkedIn</a>
+          <a href="#" target="_blank">Twitter</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span class="footer-text">&copy; 2026 GV Engineers. All rights reserved.</span>
+    <span class="footer-brand">GV Engineers</span>
+  </footer>
+
+  <script>
+    // ===== NAVBAR SCROLL EFFECT =====
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > 80) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+      lastScroll = currentScroll;
+    });
+
+    // ===== MOBILE NAV =====
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    let menuOpen = false;
+
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileNav.classList.toggle('open', menuOpen);
+      menuBtn.setAttribute('aria-expanded', menuOpen);
+    });
+
+    function closeMobileNav() {
+      menuOpen = false;
+      mobileNav.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', false);
+    }
+
+    // ===== FADE-IN ON SCROLL (IntersectionObserver) =====
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          // Stagger the animation based on element position
+          const delay = entry.target.dataset.delay || 0;
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    fadeElements.forEach((el, i) => {
+      // Add stagger delays to sibling fade-in elements
+      el.dataset.delay = (i % 3) * 120;
+      observer.observe(el);
+    });
+
+    // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
